@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+ul li a {
+  text-decoration: none;
+}
+.container {
+  width: 90vw;
+  margin: auto;
+}
+.dashboard .pagination{
+  display: flex;
+  justify-content: center;
+}
+body{
+  background-color: rgb(244, 244, 244) !important ;
+}
+html,body{
+  overflow-x: hidden;
+}
+
+.table-container table th,
+.table-container table td {
+  padding: 20px ; 
+  text-align: center;
+}
+
+.table-container table tr {
+  border-bottom: 10px solid transparent; 
+}
+
+.table-container table {
+  border-spacing: 0; 
+  border-collapse: separate; 
+}
+.actions-button button{
+  width: 100px;
+  padding: 5px;
+}
+.actions-button .btn-delete{
+  background-color: rgb(230, 91, 91);
+  color: white;
+}
+.actions-button .btn-delete:hover{
+  background-color: rgb(230, 71, 71);
+  color: white;
+}

@@ -1,0 +1,229 @@
+* {
+  outline: none;
+}
+button {
+  border: none;
+}
+
+.dashboard-header {
+  height: fit-content;
+  box-shadow: 0px 0px 25.8px 0px rgba(0, 0, 0, 0.06);
+  background-color: white;
+}
+
+.dashboard-header .container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 7px;
+}
+
+.dashboard-header .container .side-bar-toggle-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+.dashboard-header .container .side-bar-toggle-btn i {
+  color: white;
+}
+
+.dashboard-header .container .search {
+  position: relative;
+  width: 30%;
+  height: 40px;
+  border: 1px solid #00000014;
+  border-radius: 12px;
+  padding: 0 10px;
+}
+.dashboard-header .profile.notification  i{
+  color: #B197FC;
+  font-size: 20px;
+}
+.dashboard-header .container .search input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 20px;
+  color: black;
+}
+
+.dashboard-header .container .search i {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 15px;
+  cursor: pointer;
+}
+
+.dashboard-header .container .profile .notifications {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 40px;
+  background-color: #f3f3f3;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+}
+
+.dashboard-header .container .profile .notifications .notification-dot {
+  position: absolute;
+  top: -1px;
+  right: 1px;
+  width: 12px;
+  height: 12px;
+  background-color: #ff5151e0;
+  border-radius: 50%;
+  border: 1px solid black;
+}
+
+.dashboard-header .container .profile .notifications-dropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+  width: 250px;
+  z-index: 1000;
+  font-size: 13px;
+  font-weight: 400;
+  padding: 10px;
+}
+
+.dashboard-header
+  .container
+  .profile
+  .notifications-dropdown
+  .notification-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  gap: 10px;
+}
+.dashboard-header
+  .container
+  .profile
+  .notifications-dropdown
+  .notification-item:last-of-type {
+  border-bottom: none;
+}
+
+.dashboard-header
+  .container
+  .profile
+  .notifications-dropdown
+  .notification-item
+  p {
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.dashboard-header
+  .container
+  .profile
+  .notifications-dropdown
+  .notification-item
+  .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  width: 30px;
+  background-color: #f3f3f3;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.dashboard-header
+  .container
+  .profile
+  .notifications-dropdown
+  .notification-item
+  .icon::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  right: -2px;
+  width: 10px;
+  height: 10px;
+  background-color: #ff5151e0;
+  border-radius: 50%;
+  border: 1px solid black;
+}
+.dashboard-header
+  .container
+  .profile
+  .notifications-dropdown
+  .notification-item.read
+  .icon::before {
+  display: none;
+}
+
+.dashboard-header .container .profile .switch-lang {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: space-around;
+  width: 95px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #f3f3f3;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.dashboard-header .container .profile .switch-lang .active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  background-color: #9a7462;
+  border-radius: 50%;
+}
+
+.dashboard-header .container .profile {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.dashboard-header .container .profile p {
+  margin: 0;
+}
+.dashboard-header .container .profile-img img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* responsive  */
+
+@media (max-width: 460px) {
+
+  .dashboard-header .container .profile img {
+    width: 45px;
+    height: 45px;
+  }
+  .dashboard-header .container .search {
+    width: 83%;
+  }
+  .dashboard-header .container .notifications .notifications-dropdown {
+    right: -65px;
+    width: 200px;
+  }
+}

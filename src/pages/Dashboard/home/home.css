@@ -1,0 +1,16 @@
+ .card-container {
+    transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -o-transition: 0.5s;
+}
+ .card-container:hover{
+    background-color: rgb(37, 146, 214);
+}
+@media(max-width:300px){
+    .card-container .card-body{
+        flex-wrap: wrap;
+        justify-content: center !important;
+    }
+}

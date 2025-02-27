@@ -1,0 +1,16 @@
+.dash-home .container {
+  /* padding: 0; */
+  padding: 0 30px;
+}
+.dash-home table{
+    overflow-x: scroll;
+}
+.dash-home .container .table-container{
+    background-color: white;
+    padding: 20px 0;
+}
+@media (min-width: 1200px) {
+  .dash-home.open {
+    margin-left: 320px;
+  }
+}
