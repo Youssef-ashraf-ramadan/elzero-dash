@@ -51,7 +51,7 @@ const SuppliersCompanies = () => {
             <table className="table table-hover text-center">
               <thead>
                 <tr>
-                  <th>#</th>
+                  <th>ID</th>
                   <th>Name</th>
                   <th>Actions</th>
                 </tr>
@@ -71,7 +71,7 @@ const SuppliersCompanies = () => {
                         Edit
                       </button>
                       <button
-                        className="btn btn-delete btn-sm me-2"
+                        className="btn btn-delete btn-sm me-2="
                         onClick={() => handleDeleteClick(supplier)}
                       >
                         Delete
