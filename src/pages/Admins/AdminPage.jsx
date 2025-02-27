@@ -8,12 +8,13 @@ const AdminPage = () => {
   const isDashSidebarOpen = useSelector(
     (state) => state.dashSidebar.isDashSidebarOpen
   );
-
+  const currentUserEmail = useSelector((state) => state.auth.admin?.email);
   const { admins, isLoading, error, handleDelete } = useAdmins();
   const navigate = useNavigate();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [adminToDelete, setAdminToDelete] = useState(null);
-
+  
+  
   const handleDeleteClick = (admin) => {
     setAdminToDelete(admin);
     setShowDeleteModal(true);
@@ -35,7 +36,7 @@ const AdminPage = () => {
         <h1 className="fs-4">Admins List</h1>
 
         <button
-          className="btn btn-primary d-flex align-items-center gap-2 mb-3"
+          className="btn btn-primary d-flex align-items-center gap-2 mb-3 my-3"
           onClick={() => navigate("/dashboard/admin/add")}
         >
           <i className="fa fa-user"></i> Add Admin
@@ -59,31 +60,41 @@ const AdminPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {admins.map((admin, index) => (
-                  <tr key={admin.id}>
-                    <td>{index + 1}</td>
-                    <td>{admin.name}</td>
-                    <td>
-                      {admin.email}
-                      {admin.email === "admin@admin.com" && (
-                        <span className="badge bg-primary ms-2">Super Admin</span>
-                      )}
-                    </td>
-                    <td className="actions-button">
-                      <button className="btn btn-primary px-2 btn-sm me-2 my-1" onClick={() => navigate(`/dashboard/admin/${admin.id}`)}>
-                        Edit
-                      </button>
-                      {admin.email !== "admin@admin.com" && (
-                        <button
-                          className="btn btn-delete btn-sm me-2"
-                          onClick={() => handleDeleteClick(admin)}
-                        >
-                          Delete
-                        </button>
-                      )}
-                    </td>
-                  </tr>
-                ))}
+{admins.map((admin, index) => {
+  // Hide super admin from non-super admins
+  if (admin.email === "admin@admin.com" && currentUserEmail !== "admin@admin.com") {
+    return null;
+  }
+
+  return (
+    <tr key={admin.id}>
+      <td>{index + 1}</td>
+      <td>{admin.name}</td>
+      <td>
+        {admin.email}
+        {admin.email === "admin@admin.com" && (
+          <span className="badge bg-primary ms-2">Super Admin</span>
+        )}
+      </td>
+      <td className="actions-button">
+        <button 
+          className="btn btn-primary px-2 btn-sm me-2 my-1" 
+          onClick={() => navigate(`/dashboard/admin/${admin.id}`)}
+        >
+          Edit
+        </button>
+        {admin.email !== "admin@admin.com" && (
+          <button
+            className="btn btn-delete btn-sm me-2"
+            onClick={() => handleDeleteClick(admin)}
+          >
+            Delete
+          </button>
+        )}
+      </td>
+    </tr>
+  );
+})}
               </tbody>
             </table>
           ) : (

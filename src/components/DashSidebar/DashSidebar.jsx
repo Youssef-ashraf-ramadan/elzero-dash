@@ -29,50 +29,49 @@ localStorage.removeItem("token");
           <span className="d-block fw-bold fs-5" >Manegement</span>
         </div>
         <ul className="linkss">
-          <li className={({ isActive }) => (isActive ? "active" : "")}>
-            <NavLink to="/dashboard/home">
-            <i className="fa-solid fa-house"></i> Dashboard
-            </NavLink>
-          </li>
+  <li>
+    <NavLink to="/dashboard" end>
+      <i className="fa-solid fa-house"></i> Dashboard
+    </NavLink>
+  </li>
 
+  <li>
+    <NavLink to="/dashboard/admin">
+      <i className="fa-solid fa-user-shield"></i> Admins
+    </NavLink>
+  </li>
 
-          <li className={({ isActive }) => (isActive ? "active" : "")}>
-  <NavLink to="/dashboard/admin">
-    <i className="fa-solid fa-user-shield"></i> Admins
-  </NavLink>
-</li>
+  <li>
+    <NavLink to="/dashboard/suppliers-companies">
+      <i className="fa-solid fa-building"></i> Companies
+    </NavLink>
+  </li>
 
-<li className={({ isActive }) => (isActive ? "active" : "")}>
-  <NavLink to="/dashboard/suppliers-companies">
-    <i className="fa-solid fa-building"></i>  Companies
-  </NavLink>
-</li>
+  <li>
+    <NavLink to="/dashboard/suppliers">
+      <i className="fa-solid fa-truck-field"></i> Suppliers
+    </NavLink>
+  </li>
 
-<li className={({ isActive }) => (isActive ? "active" : "")}>
-  <NavLink to="/dashboard/suppliers">
-    <i className="fa-solid fa-truck-field"></i> Suppliers
-  </NavLink>
-</li>
+  <li>
+    <NavLink to="/dashboard/upload">
+      <i className="fa-solid fa-upload"></i> Upload
+    </NavLink>
+  </li>
 
+  <li>
+    <NavLink to="/dashboard/orders">
+      <i className="fa-solid fa-dolly"></i> Orders
+    </NavLink>
+  </li>
 
+  <li>
+    <NavLink to="/dashboard/drivers">
+      <i className="fa-solid fa-truck-fast"></i> Drivers
+    </NavLink>
+  </li>
+</ul>
 
-
-          <li className={({ isActive }) => (isActive ? "active" : "")}>
-            <NavLink to="/dashboard/upload">
-            <i className="fa-solid fa-upload"></i> Upload
-            </NavLink>
-          </li>
-          <li className={({ isActive }) => (isActive ? "active" : "")}>
-            <NavLink to="/dashboard/orders">
-            <i className="fa-solid fa-dolly"></i> Orders
-            </NavLink>
-          </li>
-          <li className={({ isActive }) => (isActive ? "active" : "")}>
-            <NavLink to="/dashboard/Drivers">
-            <i className="fa-solid fa-truck-fast"></i> Drivers
-            </NavLink>
-          </li>
-        </ul>
       </div>
 
 

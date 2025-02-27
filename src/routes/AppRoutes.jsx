@@ -19,6 +19,7 @@ import AddSupplier from "./../pages/Suppliers/AddSupplier";
 import ProtectedRoute from "../components/ProtectedRoute";
 import ProfilePage from "./../pages/Profile/Profile";
 import { Toaster } from "react-hot-toast";
+import Drivers from "../pages/drivers/drivers";
 
 export const AppRoutes = () => {
   const location = useLocation();
@@ -34,7 +35,8 @@ export const AppRoutes = () => {
 
         <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
           <Route path="/dashboard/orders" element={<Orders />} />
-          <Route path="/dashboard/home" element={<Home />} />
+          <Route path="/dashboard/drivers" element={<Drivers />} />
+
           <Route path="/dashboard/" element={<Home />} />
 
           <Route path="/dashboard/upload" element={<UploadPage />} />

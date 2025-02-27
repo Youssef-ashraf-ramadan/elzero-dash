@@ -18,12 +18,9 @@ function DashHeader() {
           className="side-bar-toggle-btn btn btn-primary"
           onClick={() => dispatch(toggleDashSidebar())}
         >
-          <Link>
-            <i className="bi bi-grid-3x3-gap-fill"></i>
-          </Link>
+   <i class="bi bi-grid-3x3-gap-fill"></i>
         </button>
         <div className="profile notification">
-          <i className="fa-solid fa-bell"></i>
           <Link to={"/dashboard/profile"} className="profile-img">
             <img
               src={adminData?.image || "/assets/images/doctor.png"}

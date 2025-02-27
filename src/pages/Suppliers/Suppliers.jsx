@@ -35,7 +35,7 @@ const SuppliersPage = () => {
         <h1 className="fs-4">Suppliers List</h1>
 
         <button
-          className="btn btn-primary d-flex align-items-center gap-2 mb-3"
+          className="btn btn-primary d-flex align-items-center gap-2 my-3 mb-3"
           onClick={() => navigate("/dashboard/supplier/add")}
         >
           <i className="fa fa-user"></i> Add Supplier

@@ -23,10 +23,7 @@ const AddSupplierCompany = () => {
           <input type="text" name="name" className="form-control" value={formData.name} onChange={handleChange} required />
         </div>
 
-        <div className="mb-3">
-          <label className="form-label">Email</label>
-          <input type="email" name="email" className="form-control" value={formData.email} onChange={handleChange} required />
-        </div>
+
 
         <div className="mb-3">
           <label className="form-label">Password</label>

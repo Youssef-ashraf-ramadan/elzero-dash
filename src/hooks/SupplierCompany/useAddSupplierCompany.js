@@ -9,11 +9,9 @@ const useAddSupplierCompany = () => {
   const navigate = useNavigate();
   const { isLoading } = useSelector((state) => state.auth);
 
+  // Only keep the 'name' field in the state
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
-    password: "",
-    confirm_password: "",
   });
 
   const handleChange = (e) => {
@@ -23,16 +21,11 @@ const useAddSupplierCompany = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.password !== formData.confirm_password) {
-      toast.error("Passwords do not match!");
-      return;
-    }
-
-    const supplierData = { ...formData, role: "supplier_company" };
+    const supplierData = { name: formData.name, role: "supplier_company" };
 
     try {
       await dispatch(registerUser(supplierData)).unwrap();
-      toast.success("supplier company added successfully!");
+      toast.success("Supplier company added successfully!");
       navigate("/dashboard/suppliers-companies");
     } catch (error) {
       if (error && typeof error === "object" && Object.keys(error).length > 0) {
