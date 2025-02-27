@@ -25,11 +25,18 @@ html,body{
   padding: 20px ; 
   text-align: center;
 }
+.table-container .actions-button{
+  width: 400px;
+}
 
 .table-container table tr {
   border-bottom: 10px solid transparent; 
 }
-
+@media(max-width:508px){
+  .table-container .actions-button{
+    width: initial ;
+  }
+}
 .table-container table {
   border-spacing: 0; 
   border-collapse: separate; 

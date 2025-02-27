@@ -71,7 +71,7 @@ const SuppliersCompanies = () => {
                         Edit
                       </button>
                       <button
-                        className="btn btn-delete btn-sm me-2="
+                        className="btn btn-delete btn-sm me-2"
                         onClick={() => handleDeleteClick(supplier)}
                       >
                         Delete
