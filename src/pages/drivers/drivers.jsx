@@ -23,8 +23,7 @@ function Drivers() {
         setLoading(true); // Start loading
         const response = await baseUrl.get("/drivers"); // API call
         setDrivers(response.data.data || []); // Update state with fetched data
-        console.log(response.data.data)
-
+        console.log(response.data.data);
         setError(null); // Clear any existing errors
       } catch (error) {
         console.error("Failed to fetch drivers:", error);
@@ -43,8 +42,16 @@ function Drivers() {
     setCurrentPage(selected);
   };
 
+  // Filter out rows with any empty data
+  const filteredDrivers = drivers.filter(
+    (driver) =>
+      driver.id &&
+      driver.name &&
+      driver.created_at // Ensure all fields are present
+  );
+
   // Paginated drivers data for display
-  const displayData = drivers.slice(
+  const displayData = filteredDrivers.slice(
     currentPage * rowsPerPage,
     (currentPage + 1) * rowsPerPage
   );
@@ -106,7 +113,6 @@ function Drivers() {
                   <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Phone</th>
                     <th>Joined Date</th>
                   </tr>
                 </thead>
@@ -115,14 +121,13 @@ function Drivers() {
                     displayData.map((row, index) => (
                       <tr key={index}>
                         <td>{row.id}</td>
-                        <td>{row.name || "N/A"}</td>
-                        <td>{row.number || "N/A"}</td>
-                        <td>{row.created_at || "N/A"}</td>
+                        <td>{row.name}</td>
+                        <td>{row.created_at}</td>
                       </tr>
                     ))
                   ) : (
                     <tr>
-                      <td colSpan="6">No drivers available.</td>
+                      <td colSpan="4">No drivers available.</td>
                     </tr>
                   )}
                 </tbody>

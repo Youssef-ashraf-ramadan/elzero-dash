@@ -70,7 +70,6 @@ function Orders() {
                     <th>Order Number</th>
                     <th>Amount</th>
                     <th>Driver Id</th>
-                    <th>Driver Fees</th>
                     <th>Driver Credit</th>
                     <th>Driver Debit</th>
                     <th>Dispatch Time</th>
@@ -83,7 +82,6 @@ function Orders() {
                       <td>{row.order_number || "N/A"}</td>
                       <td>{row.amount || "N/A"}</td>
                       <td>{row.driver_id || "N/A"}</td>
-                      <td>{row.driver_fees || "N/A"}</td>
                       <td>{row.credit || "N/A"}</td>
                       <td>{row.debit || "N/A"}</td>
                       <td>{row.created_at || "N/A"}</td>
