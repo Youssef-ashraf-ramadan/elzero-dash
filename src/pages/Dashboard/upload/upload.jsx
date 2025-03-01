@@ -5,7 +5,6 @@ import * as XLSX from "xlsx";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./upload.css";
-import baseUrl from "../../../api/baseURL";
 
 function UploadPage() {
   const isDashSidebarOpen = useSelector(
@@ -15,6 +14,14 @@ function UploadPage() {
   const [fileInfo, setFileInfo] = useState(null);
   const [driversData, setDriversData] = useState([]);
   const [ordersData, setOrdersData] = useState([]);
+  const [uploadedDrivers, setUploadedDrivers] = useState([]);
+  const [uploadedOrders, setUploadedOrders] = useState([]);
+  const [isUploading, setIsUploading] = useState(false);
+
+  const arraysAreEqual = (arr1, arr2) => {
+    if (arr1.length !== arr2.length) return false;
+    return arr1.every((item, index) => JSON.stringify(item) === JSON.stringify(arr2[index]));
+  };
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -35,18 +42,12 @@ function UploadPage() {
         try {
           const binaryStr = e.target.result;
           const workbook = XLSX.read(binaryStr, { type: "binary" });
-          const sheetName = workbook.SheetNames[0]; // Get the first sheet
+          const sheetName = workbook.SheetNames[0];
           const sheet = workbook.Sheets[sheetName];
-          let data = XLSX.utils.sheet_to_json(sheet, { header: 1 }); // Convert sheet to 2D array
+          let data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
-          // Remove empty rows and columns
           data = data.filter((row) =>
             row.some(
-              (cell) => cell !== undefined && cell !== null && cell !== ""
-            )
-          );
-          data = data.map((row) =>
-            row.filter(
               (cell) => cell !== undefined && cell !== null && cell !== ""
             )
           );
@@ -55,7 +56,6 @@ function UploadPage() {
             throw new Error("The Excel file is empty or improperly formatted.");
           }
 
-          // Extract drivers and orders data from sheet
           const [headers, ...rows] = data;
 
           const extractedDrivers = rows
@@ -65,7 +65,6 @@ function UploadPage() {
               );
               return {
                 name: rowObj["Driver Name"] || "",
-                created_at: new Date().toISOString(),
               };
             })
             .filter((driver) => driver.name.trim());
@@ -78,7 +77,6 @@ function UploadPage() {
               return {
                 order_number: rowObj["No"] || "",
                 amount: rowObj["Amount"] || "",
-                driver_id: rowObj["Driver ID"] || "",
                 credit: rowObj["Driver Credit Amount"] || "0",
                 debit: rowObj["Driver Depit Amount"] || "0",
                 created_at: rowObj["Dispatch Time"] || "",
@@ -87,7 +85,6 @@ function UploadPage() {
             .filter(
               (order) =>
                 order.order_number.trim() &&
-                order.driver_id.trim() &&
                 (order.amount || order.credit.trim() || order.debit.trim())
             );
 
@@ -96,9 +93,7 @@ function UploadPage() {
           toast.success("File parsed successfully!");
         } catch (parseError) {
           console.error("Error parsing file:", parseError);
-          toast.error(
-            "Failed to parse the file. Ensure the file format is correct."
-          );
+          toast.error(parseError.message || "Failed to parse the file.");
         }
       };
       reader.readAsBinaryString(file);
@@ -109,42 +104,78 @@ function UploadPage() {
   };
 
   const handleSubmit = async () => {
-    console.log(ordersData);
-    console.log(driversData);
-    if (!driversData.length && !ordersData.length) {
+    if (!ordersData.length && !driversData.length) {
       toast.warning("No valid data to upload. Please check your file.");
       return;
     }
-
+  
+    setIsUploading(true);
+    const token = localStorage.getItem("token"); // Retrieve token from localStorage or Redux
+  
+    if (!token) {
+      toast.error("Authentication token is missing. Please log in again.");
+      setIsUploading(false);
+      return;
+    }
+  
     try {
-      if (ordersData.length > 0) {
-        await axios.post(`${baseUrl}/orders`, ordersData);
+      // Upload drivers
+      if (driversData.length) {
+        try {
+          await axios.post(
+            "https://dev.brmjatech.uk/api/drivers",
+            { data: driversData },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`, // Include token in headers
+              },
+            }
+          );
+          toast.success("Drivers uploaded successfully!");
+        } catch (error) {
+          if (error.response && error.response.status === 409) {
+            toast.error("Driver data conflict detected. Possible duplicates.");
+          } else {
+            console.error("Error uploading drivers:", error);
+            toast.error("An error occurred while uploading driver data.");
+          }
+        }
       }
-      if (driversData.length > 0) {
-        await axios.post(`${baseUrl}/drivers`, driversData);
+  
+      // Upload orders
+      if (ordersData.length) {
+        try {
+          await axios.post(
+            "https://dev.brmjatech.uk/api/orders",
+            { data: ordersData },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`, // Include token in headers
+              },
+            }
+          );
+          toast.success("Orders uploaded successfully!");
+        } catch (error) {
+          if (error.response && error.response.status === 409) {
+            toast.error("Order data conflict detected. Possible duplicates.");
+          } else {
+            console.error("Error uploading orders:", error);
+            toast.error("An error occurred while uploading order data.");
+          }
+        }
       }
-
-      toast.success("Data uploaded successfully!");
+  
+      setFileInfo(null);
+      setDriversData([]);
+      setOrdersData([]);
     } catch (error) {
-      if (error.response) {
-        // Server responded with an error
-        console.error("Server Error:", error.response.data);
-        toast.error(
-          `Server error: ${
-            error.response.data.message || error.response.statusText
-          }`
-        );
-      } else if (error.request) {
-        // No response received
-        console.error("Network Error:", error.request);
-        toast.error("Network error. Please check your connection or server.");
-      } else {
-        // Other unexpected error
-        console.error("Unexpected Error:", error.message);
-        toast.error(`Unexpected error: ${error.message}`);
-      }
+      console.error("Error during submission:", error);
+      toast.error("An error occurred while processing your request.");
+    } finally {
+      setIsUploading(false);
     }
   };
+  
 
   return (
     <section
@@ -159,9 +190,7 @@ function UploadPage() {
             style={{ borderStyle: "dashed", position: "relative" }}
           >
             <i className="bi bi-upload" style={{ fontSize: "30px" }}></i>
-            <p className="mb-2 my-2">
-              Drag & drop files here or click to upload
-            </p>
+            <p className="mb-2 my-2">Click to upload File</p>
             <input
               type="file"
               className="form-control"
@@ -192,8 +221,12 @@ function UploadPage() {
             </div>
           )}
 
-          <button className="btn btn-primary px-4 mt-3" onClick={handleSubmit}>
-            Submit
+          <button
+            className="btn btn-primary px-4 mt-3"
+            onClick={handleSubmit}
+            disabled={isUploading}
+          >
+            {isUploading ? "Uploading..." : "Submit"}
           </button>
         </div>
       </div>

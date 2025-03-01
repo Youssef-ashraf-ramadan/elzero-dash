@@ -1,6 +1,5 @@
 import React from "react";
 import './login.css'
-import { Link } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 import useLogin from './../../hooks/Auth/useLogin';
