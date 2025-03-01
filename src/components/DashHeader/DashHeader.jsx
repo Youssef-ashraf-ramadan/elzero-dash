@@ -21,7 +21,7 @@ function DashHeader() {
    <i class="bi bi-grid-3x3-gap-fill"></i>
         </button>
         <div className="profile notification">
-          <Link to={"/dashboard/profile"} className="profile-img">
+          <Link to={"/dashboard"} className="profile-img">
             <img
               src={adminData?.image || "/assets/images/doctor.png"}
               alt="avatar"

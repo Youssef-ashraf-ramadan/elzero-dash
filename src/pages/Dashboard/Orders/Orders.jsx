@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
 import baseUrl from "../../../api/baseURL";
 import "./Orders.css";
-import { Trash2 } from "lucide-react"; // Import trash can icon
+import { Trash2 } from "lucide-react";
 
 function Orders() {
   const isDashSidebarOpen = useSelector(
@@ -14,53 +14,50 @@ function Orders() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
-  const rowsPerPage = 15; // Increased data per page for fewer paginations
+  const rowsPerPage = 15;
 
-  const fetchOrders = async (currentPage) => {
-    setLoading(true);
-    const token = localStorage.getItem("token");
-    if (!token) {
-      setError("Authentication token is missing. Please log in again.");
-      setLoading(false);
-      return;
-    }
+  // Fetch all orders once
+  useEffect(() => {
+    const fetchOrders = async () => {
+      setLoading(true);
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setError("Authentication token is missing. Please log in again.");
+        setLoading(false);
+        return;
+      }
+      try {
+        const response = await baseUrl.get("/orders", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        // Assume API returns an array of orders in response.data.data
+        setOrders(response.data.data || []);
+        setError(null);
+      } catch (err) {
+        console.error("Failed to fetch orders:", err);
+        setError("Failed to fetch orders. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchOrders();
+  }, []);
 
-    try {
-      const response = await baseUrl.get(`/orders`, {
-        headers: { Authorization: `Bearer ${token}` },
-        params: { page: currentPage + 1, limit: rowsPerPage },
-      });
-
-      const filteredOrders = (response.data.data || []).filter(isValidRow);
-      setOrders(filteredOrders);
-      setError(null);
-    } catch (error) {
-      console.error("Failed to fetch orders:", error);
-      setError("Failed to fetch orders. Please try again later.");
-    } finally {
-      setLoading(false);
-    }
+  const handlePageClick = ({ selected }) => {
+    setCurrentPage(selected);
   };
 
-  const isValidRow = (row) =>
-    row && typeof row === "object" && Object.keys(row).length > 0;
-
-  useEffect(() => {
-    fetchOrders(currentPage);
-  }, [currentPage]);
-
   const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this order?")) return;
     try {
       const token = localStorage.getItem("token");
       const response = await baseUrl.delete(`/orders/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-
       if (response.status === 200 || response.status === 204) {
         setOrders((prevOrders) => prevOrders.filter((order) => order.id !== id));
         alert("Order successfully deleted.");
       } else {
-        console.error("Failed to delete order:", response);
         alert("Failed to delete the order. Please try again.");
       }
     } catch (error) {
@@ -70,30 +67,29 @@ function Orders() {
   };
 
   const handleDeleteAll = async () => {
-    if (window.confirm("Are you sure you want to delete all orders?")) {
-      try {
-        const token = localStorage.getItem("token");
-        await baseUrl.delete(`/orders/delete-all`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+    if (!window.confirm("Are you sure you want to delete all orders?")) return;
+    try {
+      const token = localStorage.getItem("token");
+      const response = await baseUrl.delete(`/orders/delete-all`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (response.status === 200 || response.status === 204) {
         setOrders([]);
         alert("All orders have been successfully deleted.");
-      } catch (error) {
-        console.error("Failed to delete all orders:", error);
+      } else {
         alert("Failed to delete all orders. Please try again.");
       }
+    } catch (error) {
+      console.error("Failed to delete all orders:", error);
+      alert("Failed to delete all orders. Please try again.");
     }
   };
 
+  // Client-side pagination logic
   const pageCount = Math.ceil(orders.length / rowsPerPage);
-
-  const handlePageClick = ({ selected }) => {
-    setCurrentPage(selected);
-  };
-
-  const displayData = React.useMemo(
-    () => orders.slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage),
-    [orders, currentPage]
+  const displayData = orders.slice(
+    currentPage * rowsPerPage,
+    (currentPage + 1) * rowsPerPage
   );
 
   return (
@@ -102,7 +98,6 @@ function Orders() {
     >
       <div className="container">
         <h1 className="fs-4">Orders List</h1>
-
         <div style={{ overflowX: "auto" }} className="table-container my-3">
           {error ? (
             <div className="alert alert-danger" role="alert">
@@ -116,7 +111,7 @@ function Orders() {
             </div>
           ) : loading ? (
             <p className="px-2">Loading...</p>
-          ) : orders.length > 0 ? (
+          ) : (
             <>
               <table id="example" className="table" style={{ width: "100%" }}>
                 <thead>
@@ -131,18 +126,18 @@ function Orders() {
                   </tr>
                 </thead>
                 <tbody>
-                  {displayData.map((row, index) => (
-                    <tr key={index}>
-                      <td>{row.id}</td>
-                      <td>{row.order_number}</td>
-                      <td>{row.amount}</td>
-                      <td>{row.credit}</td>
-                      <td>{row.debit}</td>
-                      <td>{row.created_at}</td>
+                  {displayData.map((order) => (
+                    <tr key={order.id}>
+                      <td>{order.id}</td>
+                      <td>{order.order_number}</td>
+                      <td>{order.amount}</td>
+                      <td>{order.credit}</td>
+                      <td>{order.debit}</td>
+                      <td>{order.created_at}</td>
                       <td>
                         <button
                           className="btn btn-sm btn-danger d-flex justify-content-center py-2 w-100 align-items-center gap-1"
-                          onClick={() => handleDelete(row.id)}
+                          onClick={() => handleDelete(order.id)}
                         >
                           <i className="bi bi-trash"></i> Delete
                         </button>
@@ -171,8 +166,6 @@ function Orders() {
                 />
               )}
             </>
-          ) : (
-            <p className="px-2">No orders available.</p>
           )}
         </div>
         <div className="d-flex justify-content-center align-items-center mb-3">
@@ -181,8 +174,8 @@ function Orders() {
             onClick={handleDeleteAll}
             disabled={orders.length === 0}
           >
-                        <Trash2 size={20} />
-                         Delete All
+            <Trash2 size={20} />
+            Delete All
           </button>
         </div>
       </div>
