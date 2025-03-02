@@ -9,6 +9,9 @@ ul li a {
   width: 90vw;
   margin: auto;
 }
+.dash-home .container {
+  padding: 0 30px;
+}
 .dashboard .pagination{
   display: flex;
   justify-content: center;
@@ -31,6 +34,8 @@ html,body{
 
 .table-container table tr {
   border-bottom: 10px solid transparent; 
+  border: 1px solid rgb(232, 227, 227);
+
 }
 @media(max-width:508px){
   .table-container .actions-button{
@@ -45,11 +50,18 @@ html,body{
   width: 100px;
   padding: 5px;
 }
-.actions-button .btn-delete{
-  background-color: rgb(230, 91, 91);
-  color: white;
+ .btn-delete{
+  background-color: rgb(230, 91, 91) !important;
+  color: white !important;
 }
-.actions-button .btn-delete:hover{
-  background-color: rgb(230, 71, 71);
-  color: white;
+ .btn-delete:hover{
+  background-color: rgb(230, 71, 71) !important;
+  color: white !important;
+}
+.add-admin-btn{
+  width: 160px;
+  max-width: 100%;
+}
+.edit-admin-btn{
+  background-color: #3d4756 !important;
 }

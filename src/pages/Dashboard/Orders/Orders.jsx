@@ -113,7 +113,7 @@ function Orders() {
             <p className="px-2">Loading...</p>
           ) : (
             <>
-              <table id="example" className="table" style={{ width: "100%" }}>
+              <table id="example" className="table  table-centered" style={{ width: "100%" }}>
                 <thead>
                   <tr>
                     <th>ID</th>
@@ -136,7 +136,7 @@ function Orders() {
                       <td>{order.created_at}</td>
                       <td>
                         <button
-                          className="btn btn-sm btn-danger d-flex justify-content-center py-2 w-100 align-items-center gap-1"
+                          className="btn btn-sm btn-delete d-flex justify-content-center py-2 w-100 align-items-center gap-1"
                           onClick={() => handleDelete(order.id)}
                         >
                           <i className="bi bi-trash"></i> Delete
@@ -170,7 +170,7 @@ function Orders() {
         </div>
         <div className="d-flex justify-content-center align-items-center mb-3">
           <button
-            className="btn btn-danger d-flex align-items-center gap-2 px-4 py-2"
+            className="btn btn-delete d-flex align-items-center gap-2 px-4 py-2"
             onClick={handleDeleteAll}
             disabled={orders.length === 0}
           >

@@ -1,7 +1,6 @@
 import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import LoginPage from "../pages/login/login";
-import ResetPassword from "../pages/ResetPassword/ResetPassword";
 import DashHeader from "../components/DashHeader/DashHeader";
 import DashSidebar from "../components/DashSidebar/DashSidebar";
 import Orders from "../pages/Dashboard/Orders/Orders";
@@ -17,7 +16,6 @@ import SuppliersPage from "./../pages/Suppliers/Suppliers";
 import SupplierOne from "./../pages/Suppliers/SupplierOne";
 import AddSupplier from "./../pages/Suppliers/AddSupplier";
 import ProtectedRoute from "../components/ProtectedRoute";
-import ProfilePage from "./../pages/Profile/Profile";
 import { Toaster } from "react-hot-toast";
 import Drivers from "../pages/drivers/drivers";
 
@@ -63,7 +61,6 @@ export const AppRoutes = () => {
 
           {/* <Route path="/dashboard/profile" element={<ProfilePage />} /> */}
 
-          <Route path="/reset-password" element={<ResetPassword />} />
         </Route>
       </Routes>
     </>

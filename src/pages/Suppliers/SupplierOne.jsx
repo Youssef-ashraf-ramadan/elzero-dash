@@ -19,7 +19,7 @@ const SupplierOne = () => {
     >
     <div className="container mt-4">
       <Toaster position="top-center" />
-      <h2 className="text-center mb-3">Supplier Details</h2>
+      <h2 className="text-center mb-3">Edit Supplier</h2>
 
       {isLoading ? (
         <SkeletonTheme baseColor="lightgray">
@@ -28,9 +28,8 @@ const SupplierOne = () => {
       ) : error ? (
         <p className="text-danger text-center">Error: {error.message}</p>
       ) : supplier ? (
-        <div className="card shadow-lg p-4 mx-auto" style={{ maxWidth: "500px" }}>
+        <div className="card shadow-lg p-4 mx-auto" style={{ maxWidth: "700px" }}>
           <div className="card-body">
-            <h5 className="card-title text-center mb-3">Edit Supplier</h5>
             <div className="mb-3">
               <label className="form-label">Name</label>
               <input
@@ -74,11 +73,11 @@ const SupplierOne = () => {
                 placeholder="Leave blank to keep current password"
               />
             </div>
-            <div className="d-flex justify-content-between">
-              <button className="btn btn-success" onClick={handleSave}>
+            <div className="d-flex justify-content-between gap-3">
+              <button className="btn btn-primary flex-grow-1" onClick={handleSave}>
                 Save
               </button>
-              <button className="btn btn-secondary" onClick={() => navigate("/dashboard/suppliers")}>
+              <button className="btn btn-secondary text-white edit-admin-btn" onClick={() => navigate("/dashboard/suppliers")}>
                 Back
               </button>
             </div>

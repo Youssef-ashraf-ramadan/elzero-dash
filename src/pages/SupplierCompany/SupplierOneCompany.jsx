@@ -17,7 +17,6 @@ const SupplierOneCompany = () => {
     editData,
     setEditData,
     handleSave,
-    navigate,
   } = useSupplierCompanyDetails(id);
 
   return (
@@ -26,7 +25,7 @@ const SupplierOneCompany = () => {
     >
       <div className="container mt-4">
         <Toaster />
-        <h2 className="text-center mb-3">Supplier Company Details</h2>
+        <h2 className="text-center mb-3">Edit Supplier</h2>
 
         {isLoading ? (
           <SkeletonTheme baseColor="lightgray">
@@ -40,7 +39,7 @@ const SupplierOneCompany = () => {
             style={{ maxWidth: "500px" }}
           >
             <div className="card-body">
-              <h5 className="card-title text-center mb-3">Edit Supplier</h5>
+             
               <div className="mb-3">
                 <label className="form-label">Name</label>
                 <input
@@ -53,17 +52,10 @@ const SupplierOneCompany = () => {
                 />
               </div>
               <div className="d-flex justify-content-between">
-                <button className="btn btn-success" onClick={handleSave}>
+                <button className="btn btn-primary w-100 mt-2" onClick={handleSave}>
                   Save
                 </button>
-                <button
-                  className="btn btn-secondary"
-                  onClick={() =>
-                    navigate("/dashboard/suppliers-companies")
-                  }
-                >
-                  Back
-                </button>
+
               </div>
             </div>
           </div>

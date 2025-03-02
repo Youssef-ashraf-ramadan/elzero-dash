@@ -3,9 +3,7 @@
         height: initial ;
         padding: 30px 0;
     }
-    .login-page div img {
-        display: none;
-    }
+  
 }
 @media(max-width:350px){
     .login-page .login-card{

@@ -1,16 +1,21 @@
- .card-container {
-    transition: 0.5s;
-    -webkit-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -o-transition: 0.5s;
+.card-container {
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
 }
- .card-container:hover{
-    background-color: rgb(37, 146, 214);
+.card-container:hover {
+  background-color: rgb(37, 146, 214);
 }
-@media(max-width:300px){
-    .card-container .card-body{
-        flex-wrap: wrap;
-        justify-content: center !important;
-    }
+@media (max-width: 300px) {
+  .card-container .card-body {
+    flex-wrap: wrap;
+    justify-content: center !important;
+  }
+}
+.statistic-card {
+  border: 1px solid rgb(172, 0, 0);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24) !important;
+  background-color: transparent;
 }

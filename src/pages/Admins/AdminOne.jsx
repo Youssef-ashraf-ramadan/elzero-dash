@@ -19,7 +19,7 @@ const AdminOne = () => {
     >
       <div className="container mt-4">
         <Toaster position="top-center" />
-        <h2 className="text-center mb-4">Admin Details</h2>
+        <h2 className="text-center mb-4">Edit Admin</h2>
 
         {isLoading ? (
           <div className="card shadow-lg p-4 mx-auto" style={{ maxWidth: "500px" }}>
@@ -35,9 +35,8 @@ const AdminOne = () => {
             {error.message || "An error occurred while loading admin details"}
           </div>
         ) : admin ? (
-          <div className="card shadow-lg p-4 mx-auto" style={{ maxWidth: "500px" }}>
+          <div className="card shadow-lg p-4 mx-auto" style={{ maxWidth: "700px" }}>
             <div className="card-body">
-              <h5 className="card-title text-center mb-4">Edit Admin</h5>
               <div className="mb-3">
                 <label className="form-label fw-bold">Name</label>
                 <input
@@ -73,14 +72,14 @@ const AdminOne = () => {
               </div>
               <div className="d-flex justify-content-between gap-3">
                 <button 
-                  className="btn btn-success flex-grow-1" 
+                  className="btn btn-primary flex-grow-1" 
                   onClick={handleSave}
                   disabled={isLoading}
                 >
                   {isLoading ? "Saving..." : "Save Changes"}
                 </button>
                 <button 
-                  className="btn btn-secondary" 
+                  className="btn text-white edit-admin-btn" 
                   onClick={() => navigate("/dashboard/admin")}
                   disabled={isLoading}
                 >

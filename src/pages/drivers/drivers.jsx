@@ -116,7 +116,7 @@ function Drivers() {
             <Skeleton count={10} />
           ) : (
             <>
-              <table id="example" className="table" style={{ width: "100%" }}>
+              <table id="example" className="table  table-centered" style={{ width: "100%" }}>
                 <thead>
                   <tr>
                     <th>ID</th>
@@ -133,7 +133,7 @@ function Drivers() {
                       <td>{driver.created_at}</td>
                       <td>
                         <button
-                          className="btn btn-sm btn-danger w-100  justify-content-center text-center py-2 d-flex align-items-center gap-2"
+                          className="btn btn-sm btn-delete w-100  justify-content-center text-center py-2 d-flex align-items-center gap-2"
                           onClick={() => handleDeleteById(driver.id)}
                         >
                           <Trash2 size={16} />
@@ -168,7 +168,7 @@ function Drivers() {
         </div>
         <div className="d-flex justify-content-center mb-3">
           <button
-            className="btn btn-danger d-flex align-items-center gap-2 px-4 py-2"
+            className="btn btn-delete d-flex align-items-center gap-2 px-4 py-2"
             onClick={handleDeleteAll}
             disabled={drivers.length === 0}
           >

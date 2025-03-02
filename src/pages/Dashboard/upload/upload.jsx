@@ -14,14 +14,9 @@ function UploadPage() {
   const [fileInfo, setFileInfo] = useState(null);
   const [driversData, setDriversData] = useState([]);
   const [ordersData, setOrdersData] = useState([]);
-  const [uploadedDrivers, setUploadedDrivers] = useState([]);
-  const [uploadedOrders, setUploadedOrders] = useState([]);
+
   const [isUploading, setIsUploading] = useState(false);
 
-  const arraysAreEqual = (arr1, arr2) => {
-    if (arr1.length !== arr2.length) return false;
-    return arr1.every((item, index) => JSON.stringify(item) === JSON.stringify(arr2[index]));
-  };
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -186,7 +181,7 @@ function UploadPage() {
         <h1 className="fs-4">Upload Files</h1>
         <div className="table-container my-3 py-4 px-4 text-center">
           <div
-            className="upload-area border border-dashed border-primary rounded p-2 d-flex flex-column align-items-center justify-content-center"
+            className="upload-area  border-dashed border-primary rounded p-2 d-flex flex-column align-items-center justify-content-center"
             style={{ borderStyle: "dashed", position: "relative" }}
           >
             <i className="bi bi-upload" style={{ fontSize: "30px" }}></i>
@@ -222,7 +217,7 @@ function UploadPage() {
           )}
 
           <button
-            className="btn btn-primary px-4 mt-3"
+            className="btn btn-primary add-admin-btn px-4 mt-3"
             onClick={handleSubmit}
             disabled={isUploading}
           >

@@ -7,7 +7,7 @@
   top: 0;
   left: 0;
   height: 100%;
-  width: 280px;
+  width: 240px;
   background: #ffffff;
   overflow-y: auto;
   z-index: 20;
@@ -15,9 +15,9 @@
   transition: transform 0.3s ease-in-out;
   box-shadow: 0px 0px 25.8px 0px rgba(0, 0, 0, 0.06);
 }
-@media(max-width:320px){
-  .Dashsidebar{
-    width:280px;
+@media (max-width: 320px) {
+  .Dashsidebar {
+    width: 280px;
   }
 }
 .Dashsidebar.open {
@@ -35,7 +35,7 @@
   cursor: pointer;
   width: 30px;
   height: 30px;
-  background-color: #B197FC;
+  background-color: #1c84ee;
   border-radius: 8px;
   margin-top: 9px;
 }
@@ -45,27 +45,23 @@
 .Dashsidebar .side-logo {
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 0 15px;
 }
-.side-logo span{
-color: #1c84ee;
+.side-logo span {
+  color: #1c84ee;
 }
-
 
 .Dashsidebar .linkss {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   gap: 15px;
   width: 100%;
   height: fit-content;
-  padding: 10px;
+  padding: 0;
   margin-top: 25px;
   color: #000000b2;
 }
- .linkss li {
+.linkss li {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -79,7 +75,7 @@ color: #1c84ee;
   border-radius: 10px;
   position: relative;
   cursor: pointer;
-  border: 1px solid #f5f5f5;
+
   transition: var(--main-tran);
 }
 
@@ -99,13 +95,10 @@ color: #1c84ee;
 }
 .Dashsidebar .linkss li a {
   width: 100%;
-  color: #000000b2;
+  color: #8486a7;
+  padding: 0 20px;
   text-decoration: none;
 }
-.Dashsidebar .linkss i, .Dashsidebar .log-out i, .dashHeader .notification{
-  color: #B197FC;
-}
-
 
 .linkss li:has(a.active) {
   background-color: #f5f5f5;
@@ -114,6 +107,7 @@ color: #1c84ee;
 .Dashsidebar .linkss .active,
 .Dashsidebar .linkss li:hover {
   background-color: #f5f5f5;
+  color: #8486a7;
 }
 
 .Dashsidebar .linkss .active::before {
@@ -128,21 +122,6 @@ color: #1c84ee;
   background-color: var(--main-color);
 }
 
-.Dashsidebar .log-out {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  width: 89%;
-  height: 40px;
-  padding: 8px 13px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #00000026;
-  color: #000000b2;
-}
 
 .Dashsidebar .log-out .info {
   display: flex;
@@ -151,23 +130,26 @@ color: #1c84ee;
   gap: 7px;
   color: #000000b2;
 }
-.Dashsidebar .log-out .info i {
-  font-size: 20px;
-}
-.Dashsidebar .log-out .log-btn {
-  color: #fe6565;
-  cursor: pointer;
-}
+
+
 
 .linkss li {
-  height: 50px; /* Adjust as per your design */
+  height: 40px; /* Adjust as per your design */
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
-  align-items: center; /* Vertically align content */
+  align-items: center;
+  width: 100%;
+  position: relative;
 }
-
+.linkss li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 4px;
+  height: 100%;
+}
 
 .linkss li a {
   display: flex;
@@ -177,18 +159,26 @@ color: #1c84ee;
   color: inherit;
   width: 100%;
   height: 100%;
-  padding: 0 15px; 
+  padding: 0 15px;
   transition: background-color 0.3s ease;
 }
 
-
 .linkss li a:hover,
 .linkss li a.active {
-  background-color: #f0f0f0;
-  color: #007bff; 
+  background-color: #f3f1fa;
+  color: #3d4756;
+}
+.linkss li:has(a.active)::before {
+  background-color: #1c84ee;
+}
+.linkss li:not(:last-child) a:hover svg {
+  fill: #3d4756 !important;
 }
 
+.linkss li a svg {
+  margin-right: 5px;
+}
+.Dashsidebar .linkss li:not(:last-child) svg{
+  fill: #8486a7 !important;
 
-.linkss li a i {
-  margin-right: 10px; 
 }
